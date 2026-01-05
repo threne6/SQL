@@ -68,7 +68,7 @@ These roles sit close to core product and monetization decisions, justifying out
 ### 2. Skills Required for Top-Paying BA Roles: 
 To understand what skills are needed to land the highest-paying BA jobs, I first pulled the top 10 highest-paying business analyst postings (with non-null salaries). Then, I joined those jobs to the skills tables to list every skill associated with each top-paying role. This reveals the common technical and analytical skill requirements that show up most often in elite BA postings, helping highlight what candidates should prioritize learning.
 
-```
+``` SQL
 WITH top_paying_jobs AS (
 
     SELECT
@@ -115,7 +115,7 @@ Less common but notable skills such as R, Go, and Airflow tend to appear in role
 ### 3. Most In-Demand Skills for Business Analysts:
 To identify which skills are most in demand for business analysts, I analyzed all BA job postings and counted how often each skill appeared across roles. By grouping postings by skill and ranking them by frequency, this query highlights the top skills employers most commonly request, providing insight into the baseline and must-have competencies for business analysts in the job market.
 
-```
+``` SQL
 SELECT 
     skills,
     COUNT(skills_job_dim.job_id) AS demand_count
@@ -157,7 +157,7 @@ LIMIT 5
 ### 4. Skills Associated with Higher Salaries:
 To determine which skills are linked to higher-paying business analyst roles, I joined BA job postings with their required skills and calculated the average salary for each skill. By filtering for roles with reported salaries and ranking skills by average pay, this query highlights the skills that command the strongest salary premiums, helping identify which technical and analytical capabilities are most financially rewarding.
 
-```
+``` SQL
 SELECT 
     skills,
     ROUND(AVG(salary_year_avg), 0) AS avg_salary
@@ -202,7 +202,8 @@ LIMIT 25
 ### 5. Most Optimal Skills to Learn:
 To find the most optimal skills for business analysts to learn, I combined two perspectives: skill demand and skill pay premium. First, I calculated how frequently each skill appears in BA job postings (demand). Then, I computed the average salary associated with each skill for postings with reported salaries. By joining these two results on skill_id and ranking the output by highest demand and then highest average salary, this query identifies skills that offer the best blend of market relevance and earning potential.
 
-```WITH skills_demand AS (
+```SQL
+WITH skills_demand AS (
     SELECT 
         skills_dim.skill_id,
         skills_dim.skills,
